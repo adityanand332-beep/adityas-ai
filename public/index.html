@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ADITYA'S AI — Real AI Chatbot</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="app">
+  <aside class="sidebar">
+    <div class="brand"><div class="logo">✦</div><div><b>ADITYA'S</b><small>AI ASSISTANT</small></div></div>
+    <button class="new-chat" id="newChat">＋ New Chat</button>
+    <div class="history" id="history">
+      <p class="label">CHAT</p>
+      <button class="history-item active">💬 Current conversation</button>
+    </div>
+    <div class="side-bottom">
+      <button>⚙ Settings</button>
+      <button>❓ Help & FAQ</button>
+      <div class="profile"><div class="avatar">U</div><div><b>Guest User</b><small>Local App</small></div></div>
+    </div>
+  </aside>
+
+  <main class="chat">
+    <header class="topbar">
+      <div class="mobile-brand"><div class="logo">✦</div><b>ADITYA'S AI</b></div>
+      <div class="assistant"><div class="ai-avatar">✦<i></i></div><div><b>ADITYA'S AI</b><small><span class="dot"></span> Ready</small></div></div>
+      <div class="top-actions"><button id="themeBtn" title="Toggle theme">☼</button></div>
+    </header>
+
+    <section class="messages" id="messages">
+      <div class="welcome" id="welcome">
+        <div class="big-logo">✦</div>
+        <h1>How can I help you today?</h1>
+        <p>Ask anything — ADITYA'S AI is powered by Groq.</p>
+        <div class="suggestions">
+          <button data-prompt="Explain HTML in simple words">💡 Explain HTML simply</button>
+          <button data-prompt="Give me 5 website project ideas">🚀 Give me project ideas</button>
+          <button data-prompt="Write a simple CSS card">💻 Write CSS code</button>
+          <button data-prompt="Help me learn JavaScript">📚 Help me learn JS</button>
+        </div>
+      </div>
+    </section>
+
+    <form class="composer" id="chatForm">
+      <div class="input-wrap">
+        <button type="button" id="clearBtn" title="Clear chat">＋</button>
+        <input id="messageInput" autocomplete="off" placeholder="Message ADITYA'S AI..." />
+        <button class="send" title="Send">➤</button>
+      </div>
+      <p>ADITYA'S AI may make mistakes. Verify important information.</p>
+    </form>
+  </main>
+</div>
+<script src="script.js"></script>
+</body>
+</html>
