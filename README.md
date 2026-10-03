@@ -2,6 +2,8 @@
 
 A shareable AI chat app powered by Groq and a Node.js/Express backend.
 
+The assistant can answer general questions and questions about Aditya using the confirmed public profile built into the server prompt.
+
 ## Run locally
 
 Requirements: Node.js 18+ and a Groq API key.
