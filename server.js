@@ -89,6 +89,33 @@ function getRequestedResponseLanguage(text) {
   return englishStyleRequest?.[1] || southAsianStyleRequest?.[1] || "English";
 }
 
+function getConciseProfileReply(text) {
+  const normalized = text
+    .toLocaleLowerCase()
+    .replace(/[’‘]/g, "'")
+    .replace(/[?!.,]+/g, "")
+    .replace(/\s+/g, " ")
+    .trim();
+
+  if (/^(?:who is aditya|aditya kaun hai|tell me about aditya|what do you know about aditya)$/.test(normalized)) {
+    return "Aditya is a second-year B.Sc. IT student, web developer, AI enthusiast, and tech creator interested in building useful technology. He created this personal AI assistant and enjoys learning by building real-world projects.";
+  }
+
+  if (/^(?:who created you|who made you|who made aditya'?s ai|who created aditya'?s ai)$/.test(normalized)) {
+    return "Aditya created me as his personal AI assistant. He is a second-year B.Sc. IT student interested in web development, AI, software, and building technology products.";
+  }
+
+  if (/^(?:what does aditya study|what is aditya studying|what is aditya'?s education|what is aditya'?s qualification)$/.test(normalized)) {
+    return "Aditya is currently a second-year B.Sc. IT student.";
+  }
+
+  if (/^(?:who is chhotu|tell me about chhotu)$/.test(normalized)) {
+    return "There are two different people Aditya refers to as Chhotu: Aditi, his sister-like flatmate whom he affectionately calls Chhotu, and his male close friend Chhotu. They are different people. Would you like to know about Aditi or his male friend?";
+  }
+
+  return null;
+}
+
 app.use(express.json({ limit: "1mb" }));
 app.use(express.static(path.join(__dirname, "public")));
 
@@ -119,6 +146,11 @@ app.post("/api/chat", async (req, res) => {
     }
 
     const requestedLanguage = getRequestedResponseLanguage(cleanMessages.at(-1).content);
+    const conciseProfileReply = getConciseProfileReply(cleanMessages.at(-1).content);
+    if (conciseProfileReply && requestedLanguage === "English") {
+      return res.json({ reply: conciseProfileReply });
+    }
+
     const response = await client.chat.completions.create({
       model,
       messages: [
