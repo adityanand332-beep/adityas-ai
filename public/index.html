@@ -1,58 +1,94 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ADITYA'S AI — Real AI Chatbot</title>
-<link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#101114">
+  <title>ADITYA'S AI — Personal Assistant</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<div class="app">
-  <aside class="sidebar">
-    <div class="brand"><div class="logo">✦</div><div><b>ADITYA'S</b><small>AI ASSISTANT</small></div></div>
-    <button class="new-chat" id="newChat">＋ New Chat</button>
-    <div class="history" id="history">
-      <p class="label">CHAT</p>
-      <button class="history-item active">💬 Current conversation</button>
-    </div>
-    <div class="side-bottom">
-      <button>⚙ Settings</button>
-      <button>❓ Help & FAQ</button>
-      <div class="profile"><div class="avatar">U</div><div><b>Guest User</b><small>Local App</small></div></div>
-    </div>
-  </aside>
+  <div class="app">
+    <div class="sidebar-backdrop" id="sidebarBackdrop"></div>
+    <aside class="sidebar" id="sidebar" aria-label="Chat sidebar">
+      <div class="sidebar-top">
+        <a class="brand" href="/" aria-label="Aditya AI home">
+          <span class="brand-mark" aria-hidden="true">✦</span>
+          <span class="brand-name">Aditya AI</span>
+        </a>
+        <button class="icon-button sidebar-toggle" id="sidebarToggle" type="button" aria-label="Collapse sidebar" title="Collapse sidebar">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="4" width="17" height="16" rx="3"></rect><path d="M9 4v16"></path><path d="m15 9-3 3 3 3"></path></svg>
+        </button>
+      </div>
 
-  <main class="chat">
-    <header class="topbar">
-      <div class="mobile-brand"><div class="logo">✦</div><b>ADITYA'S AI</b></div>
-      <div class="assistant"><div class="ai-avatar">✦<i></i></div><div><b>ADITYA'S AI</b><small><span class="dot"></span> Ready</small></div></div>
-      <div class="top-actions"><button id="themeBtn" title="Toggle theme">☼</button></div>
-    </header>
+      <button class="new-chat" id="newChat" type="button">
+        <span class="new-chat-icon" aria-hidden="true">＋</span>
+        <span class="sidebar-label">New Chat</span>
+        <span class="shortcut sidebar-label" aria-hidden="true">Ctrl K</span>
+      </button>
 
-    <section class="messages" id="messages">
-      <div class="welcome" id="welcome">
-        <div class="big-logo">✦</div>
-        <h1>How can I help you today?</h1>
-        <p>Ask me about Aditya, his projects, interests, goals — or anything else.</p>
-        <div class="suggestions">
-          <button data-prompt="Aditya kaun hai aur kya karta hai?">👋 Aditya kaun hai?</button>
-          <button data-prompt="Aditya ke projects batao">🚀 Aditya ke projects</button>
-          <button data-prompt="Aditya ke close friends kaun hain?">👥 Friends</button>
-          <button data-prompt="Aditya ke future goals kya hain?">🎯 Future goals</button>
+      <section class="recents" aria-label="Recent conversations">
+        <h2 class="recents-heading sidebar-label">Recents</h2>
+        <div class="history-list" id="history" role="list"></div>
+      </section>
+
+      <div class="sidebar-bottom">
+        <button class="theme-toggle" id="themeBtn" type="button">
+          <span class="theme-icon" aria-hidden="true">☼</span>
+          <span class="sidebar-label">Toggle theme</span>
+        </button>
+        <div class="profile">
+          <div class="avatar" aria-hidden="true">A</div>
+          <div class="profile-copy sidebar-label"><b>Aditya AI</b><small>Personal assistant</small></div>
         </div>
       </div>
-    </section>
+    </aside>
 
-    <form class="composer" id="chatForm">
-      <div class="input-wrap">
-        <button type="button" id="clearBtn" title="Clear chat">＋</button>
-        <input id="messageInput" autocomplete="off" placeholder="Message ADITYA'S AI..." />
-        <button class="send" title="Send">➤</button>
-      </div>
-      <p>ADITYA'S AI may make mistakes. Verify important information.</p>
-    </form>
-  </main>
-</div>
-<script src="script.js"></script>
+    <main class="chat">
+      <header class="topbar">
+        <div class="topbar-left">
+          <button class="icon-button mobile-menu" id="mobileMenu" type="button" aria-label="Open chat history" title="Open chat history">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"></path></svg>
+          </button>
+          <button class="icon-button desktop-menu" id="desktopMenu" type="button" aria-label="Expand sidebar" title="Expand sidebar">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="4" width="17" height="16" rx="3"></rect><path d="M9 4v16"></path><path d="m14 9 3 3-3 3"></path></svg>
+          </button>
+          <span class="topbar-title">Aditya's Assistant</span>
+        </div>
+        <span class="online-indicator"><span class="online-dot"></span> AI assistant</span>
+      </header>
+
+      <section class="messages" id="messages" aria-live="polite" aria-label="Conversation">
+        <div class="welcome" id="welcome">
+          <div class="welcome-mark" aria-hidden="true">✦</div>
+          <h1>Aditya's Assistant</h1>
+          <p>How can I help you today?</p>
+        </div>
+      </section>
+
+      <form class="composer" id="chatForm">
+        <div class="input-wrap">
+          <textarea id="messageInput" rows="1" autocomplete="off" aria-label="Message Aditya's Assistant" placeholder="Message Aditya's Assistant..."></textarea>
+          <button class="send" id="sendButton" type="submit" aria-label="Send message" title="Send message">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V5"></path><path d="m6 11 6-6 6 6"></path></svg>
+          </button>
+        </div>
+        <p class="disclaimer">Aditya's Assistant can make mistakes. Verify important information.</p>
+      </form>
+    </main>
+
+    <dialog class="rename-dialog" id="renameDialog">
+      <form method="dialog" id="renameForm">
+        <h2>Rename conversation</h2>
+        <label for="renameInput">Conversation title</label>
+        <input id="renameInput" maxlength="80" required>
+        <div class="dialog-actions">
+          <button class="dialog-cancel" value="cancel">Cancel</button>
+          <button class="dialog-save" id="renameSave" value="save">Save</button>
+        </div>
+      </form>
+    </dialog>
+  </div>
+  <script src="script.js"></script>
 </body>
 </html>
